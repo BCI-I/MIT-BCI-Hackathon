@@ -6,4 +6,5 @@ This repository contains some code to help hackathon participants get started wi
 
 
 🔗 BCI Initiative: https://bci-i.github.io/
+
 🔗 Hackathon: https://bci-i.github.io/hackathon
