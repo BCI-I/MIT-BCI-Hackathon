@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
     # camera
     # - async
-    simulated_camera_async()
+    # simulated_camera_async()
     # real_camera_async()
     # - sync
     # simulated_camera_sync()

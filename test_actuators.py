@@ -11,7 +11,7 @@ REAL_ROBOT_NAME: str = "db21j3"
 # MOTORS ###############################################################################################################
 
 def _motors(robot: DB21J):
-    speeds: Tuple[float, float] = (0.5, 0.5)
+    speeds: Tuple[float, float] = (0.5, 1.5)
     robot.motors.start()
     stime: float = time.time()
     while time.time() - stime < 2:
@@ -62,10 +62,10 @@ if __name__ == '__main__':
     pass
 
     # motors
-    simulated_motors()
+    # simulated_motors()
     # real_motors()
 
     # lights
-    # simulated_lights()
+    simulated_lights()
     # real_lights()
 
