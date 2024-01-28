@@ -5,7 +5,7 @@ from duckietown.sdk.robots.duckiebot import DB21J
 from duckietown.sdk.types import LEDsPattern, RGBAColor
 
 SIMULATED_ROBOT_NAME: str = "map_0/vehicle_0"
-REAL_ROBOT_NAME: str = "db21j3"
+REAL_ROBOT_NAME: str = "rover"
 
 
 # MOTORS ###############################################################################################################
@@ -66,6 +66,6 @@ if __name__ == '__main__':
     # real_motors()
 
     # lights
-    simulated_lights()
-    # real_lights()
+    # simulated_lights()
+    real_lights()
 

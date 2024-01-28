@@ -5,7 +5,7 @@ from duckietown.sdk.robots.duckiebot import DB21J
 from duckietown.sdk.types import BGRImage
 
 SIMULATED_ROBOT_NAME: str = "map_0/vehicle_0"
-REAL_ROBOT_NAME: str = "db21j3"
+REAL_ROBOT_NAME: str = "rover"
 
 
 # CAMERA ###############################################################################################################
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     # camera
     # - async
     # simulated_camera_async()
-    # real_camera_async()
+    real_camera_async()
     # - sync
     # simulated_camera_sync()
     # real_camera_sync()
