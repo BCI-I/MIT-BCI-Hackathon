@@ -108,7 +108,7 @@ if __name__ == '__main__':
     # camera
     # - async
     # simulated_camera_async()
-    real_camera_async()
+    # real_camera_async()
     # - sync
     # simulated_camera_sync()
     # real_camera_sync()
@@ -119,4 +119,4 @@ if __name__ == '__main__':
     # real_range_finder_async()
     # - sync
     # simulated_range_finder_sync()
-    # real_range_finder_sync()
+    real_range_finder_sync()

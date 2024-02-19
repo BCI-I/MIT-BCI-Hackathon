@@ -11,12 +11,14 @@ REAL_ROBOT_NAME: str = "rover"
 # MOTORS ###############################################################################################################
 
 def _motors(robot: DB21J):
-    speeds: Tuple[float, float] = (0.5, 1.5)
+    # speeds: Tuple[float, float] = (0.5, 1.5)
+    speeds = (0.5, 0.5)
     robot.motors.start()
     stime: float = time.time()
-    while time.time() - stime < 2:
+    while time.time() - stime < 4:
         robot.motors.publish(speeds)
         time.sleep(0.25)
+        print("speedy")
     robot.motors.stop()
     print("Stopped.")
 
@@ -63,9 +65,9 @@ if __name__ == '__main__':
 
     # motors
     # simulated_motors()
-    # real_motors()
+    real_motors()
 
     # lights
     # simulated_lights()
-    real_lights()
+    # real_lights()
 
