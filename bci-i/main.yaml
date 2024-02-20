@@ -1,0 +1,9 @@
+version: 1.0
+main:
+  frames: !include 'frames.yaml'
+  tiles: !include 'tiles.yaml'
+  tile_maps: !include 'tile_maps.yaml'
+  citizens: !include 'citizens.yaml'
+  trafficsigns: !include 'trafficsigns.yaml'
+  vehicles: !include 'vehicles.yaml'
+  cameras: !include 'cameras.yaml'
