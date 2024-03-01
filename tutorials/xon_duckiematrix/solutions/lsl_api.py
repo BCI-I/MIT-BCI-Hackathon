@@ -340,7 +340,10 @@ def get_noise_api():
 
 if __name__ == '__main__':
     """Run streaming and plotting."""
-    lsl_api = get_lsl_api(write_file=_WRITE_FILE)
+    lsl_api = get_lsl_api(
+        target_stream_name =  "X.on-102106-0035" ,
+        # write_file=_WRITE_FILE
+        )
     if lsl_api is None:
         exit()
     lsl_api.run_plot_loop()
