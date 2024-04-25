@@ -1,52 +1,11 @@
-"""Entrypoint to run calibration GUI.
-
-Run a calibration protocol, using either noise features or EEG features.
-
-To run using noise features, run:
-    $ python3 calibration.py name=$YOUR_NAME stream=noise
-
-To run using EEG features, run:
-    $ python3 calibration.py name=$YOUR_NAME stream=lsl_api
-    
-To fine-tune a previously run snapshot, run:
-    $ python3 calibration.py name=$NEW_MODEL_NAME stream=lsl_api \
-        snapshot_name=$SNAPSHOT_NAME
-    
-The string $YOUR_NAME is an identified to label this calibration, and points to
-the file in the ./snapshots/ directory that contains the parameters fit by this
-calibration. If you want to avoid overriding a calibration, use a different name
-for future calibration runs.
-
-The calibration learns the mapping between the input space (EEG or noise) and
-the (rotation, speed) action space for the duckie. The action space is
-2-dimensional and is represented by a rectangular visual display. To calibrate,
-a red ball travels via a serpentine pattern in this display. The user should
-simultaneously track the ball. After completing it's tour, a model is trained
-and saved, and the process repeats. The model trains after each trial, and the
-model-decoded ball is displayed as a green ball. These trials will loop (and the
-calibration will improve) indefinitely, so terminate the program whenever you
-think it is good enough. When you terminate, it may take a couple seconds to
-navigate to the terminal to do so, during which your EEG input will not be good
-for calibration, so when you want to terminate we recommend focusing on the
-calibration through the end of a trial, waiting for the next trial to start
-(indicating training for the previous trial has completed), then terminate
-before the new trial ends.
-
-In practice, for the duckie controller in duckie.py, only the rotation component
-of the action space is used. So to calibrate you can ignore the vertical
-(height) axis and just focus on left/right. Clenching your jaw on the left and
-right side to track the left/right position of the red ball leads to pretty good
-calibration.
-"""
-
-import gui as gui_lib
-import numpy as np
-import lsl_api
-from pathlib import Path
-import sys
 import torch
+import numpy as np
+import gui as gui_lib
+from pathlib import Path
 
-_SNAPSHOT_DIR = Path('./snapshots')
+_SNAPSHOT_DIR = Path(__file__).parent / 'snapshots'
+
+
 
 
 class MLP(torch.nn.Module):
@@ -98,6 +57,8 @@ class MLP(torch.nn.Module):
     def out_features(self):
         return self._layer_features[-1]
     
+
+
     
 class Agent(torch.nn.Module):
     """Agent class."""
@@ -168,7 +129,9 @@ def _sample_batch(*arrays, batch_size):
     batch_arrays = [x[indices] for x in arrays]
     return batch_arrays
     
-    
+
+
+  
 class Calibrator():
     """Action space calibrator to learn mapping from EEG features to actions."""
     
@@ -276,31 +239,3 @@ class Calibrator():
         self._all_inputs = np.array(self._all_inputs)
         self._all_targets = np.array(self._all_targets)
         
-        
-def main(name, snapshot_name=None, stream='lsl'):
-    """Main function."""
-    
-    # Get feature stream
-    if stream == 'lsl':
-        feature_stream = lsl_api.get_lsl_api()
-    elif stream == 'noise':
-        feature_stream = lsl_api.get_noise_api()
-    else:
-        raise ValueError(f'Invalid stream {stream}')
-    
-    # Create gui and calibrator 
-    gui = gui_lib.CalibrationGUI()
-    calibrator = Calibrator(
-        name=name,
-        feature_stream=feature_stream,
-        gui=gui,
-        snapshot_name=snapshot_name,
-    )
-    
-    # Run calibration loop
-    calibrator()
-
-
-if __name__ == '__main__':
-    main(**dict(arg.split('=') for arg in sys.argv[1:]))
-    
